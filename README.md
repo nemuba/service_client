@@ -22,7 +22,142 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Basic usage example:
+
+```ruby
+class Request < ServiceClient::Call
+  def customer(id)
+    response = get("https://api.com/customers/#{id}")
+
+    response.data
+  rescue ServiceClient::Errors::NoDataFoundError => e
+    puts e.response.code # 404
+    puts e.response.headers
+    puts e.response.data 
+  rescue ServiceClient::Errors::InternalServerError => e
+    puts e.response.code # 500
+    puts e.response.headers
+    puts e.response.data
+  # All errors of HTTP status code
+  end
+
+  def customers
+    get(nil)
+  rescue ServiceClient::ParamsRequired => e
+    puts e.message
+  end
+end
+
+```
+
+# Methods of class
+
+```ruby
+# GET
+ServiceClient::Call.get(url, headers:)
+
+# POST
+ServiceClient::Call.post(url, headers:, body:)
+
+# PUT
+ServiceClient::Call.put(url, headers:, body:)
+
+# DELETE
+ServiceClient::Call.delete(url, headers:, body:)
+```
+
+# Classes of errors
+
+```ruby
+# 400 – Bad Request
+  ServiceClient::Errors::BadRequestError
+  # 401 – Unauthorized
+  ServiceClient::Errors::UnauthorizedError
+  # 402 – Payment Required
+  ServiceClient::Errors::PaymentRequiredError
+  # 403 – Forbidden
+  ServiceClient::Errors::ForbiddenError
+  # 404 – Not Found
+  ServiceClient::Errors::NotFoundError
+  # 405 – Method Not Allowed
+  ServiceClient::Errors::MethodNotAllowedError
+  # 406 – Not Acceptable
+  ServiceClient::Errors::NotAcceptableError
+  # 407 – Proxy Authentication Required
+  ServiceClient::Errors::ProxyAuthenticationRequiredError
+  # 408 – Request Timeout
+  ServiceClient::Errors::RequestTimeoutError
+  # 409 – Conflict
+  ServiceClient::Errors::ConflictError
+  # 410 – Gone
+  ServiceClient::Errors::GoneError
+  # 411 – Length Required
+  ServiceClient::Errors::LengthRequiredError
+  # 412 – Precondition Failed
+  ServiceClient::Errors::PreconditionFailedError
+  # 413 – Request Entity Too Large
+  ServiceClient::Errors::RequestEntityTooLargeError
+  # 414 – Request-URI Too Long
+  ServiceClient::Errors::RequestURITooLongError
+  # 415 – Unsupported Media Type
+  ServiceClient::Errors::UnsupportedMediaTypeError
+  # 416 – Requested Range Not Satisfiable
+  ServiceClient::Errors::RequestedRangeNotSatisfiableError
+  # 417 – Expectation Failed
+  ServiceClient::Errors::ExpectationFailedError
+  # 420 – Enhance Your Calm
+  ServiceClient::Errors::EnhanceYourCalmError
+  # 422 – Unprocessable Entity
+  ServiceClient::Errors::UnprocessableEntityError
+  # 423 – Locked
+  ServiceClient::Errors::LockedError
+  # 424 – Failed Dependency
+  ServiceClient::Errors::FailedDependencyError
+  # 426 – Upgrade Required
+  ServiceClient::Errors::UpgradeRequiredError
+  # 428 – Precondition Required
+  ServiceClient::Errors::PreconditionRequiredError
+  # 429 – Too Many Requests
+  ServiceClient::Errors::TooManyRequestsError
+  # 431 – Request Header Fields Too Large
+  ServiceClient::Errors::RequestHeaderFieldsTooLargeError
+  # 444 – No Response
+  ServiceClient::Errors::NoResponseError
+  # 449 – Retry With
+  ServiceClient::Errors::RetryWithError
+  # 450 – Bllocked by Windows Parental Controls
+  ServiceClient::Errors::BlockedByWindowsParentalControlsError
+  # 451 – Unavailable For Legal Reasons
+  ServiceClient::Errors::UnavailableForLegalReasonsError
+  # 499 – Client Closed Request
+  ServiceClient::Errors::ClientClosedRequestError
+  # 500 – Internal Server Error
+  ServiceClient::Errors::InternalServerError
+  # 501 – Not Implemented
+  ServiceClient::Errors::NotImplementedError
+  # 502 – Bad Gateway
+  ServiceClient::Errors::BadGatewayError
+  # 503 – Service Unavailable
+  ServiceClient::Errors::ServiceUnavailableError
+  # 504 – Gateway Timeout
+  ServiceClient::Errors::GatewayTimeoutError
+  # 505 – HTTP Version Not Supported
+  ServiceClient::Errors::HTTPVersionNotSupportedError
+  # 506 – Variant Also Negotiates
+  ServiceClient::Errors::VariantAlsoNegotiatesError
+  # 507 – Insufficient Storage
+  ServiceClient::Errors::InsufficientStorageError
+  # 508 – Loop Detected
+  ServiceClient::Errors::LoopDetectedError
+  # 510 – Not Extended
+  ServiceClient::Errors::NotExtendedError
+  # 511 – Network Authentication Required
+  ServiceClient::Errors::NetworkAuthenticationRequiredError
+  # 598 – Network Read Timeout Error
+  ServiceClient::Errors::NetworkReadTimeoutError
+  # 599 – Network Connect Timeout Error
+  ServiceClient::Errors::NetworkConnectTimeoutError
+```
 
 ## Development
 
@@ -33,7 +168,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/service_client.
-
 
 ## License
 

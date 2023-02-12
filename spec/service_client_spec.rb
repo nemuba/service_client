@@ -7,7 +7,7 @@ RSpec.describe ServiceClient do
 
   context 'Call' do
     describe 'GET' do
-      let(:call) { ServiceClient::Call.get('https://mock-http-requests.herokuapp.com/200') }
+      let(:call) { ServiceClient::Call.get('https://mock-http-requests.onrender.com/200') }
 
       it 'have an method with response class instance' do
         expect(call).to be_a(ServiceClient::Response)
@@ -33,7 +33,7 @@ RSpec.describe ServiceClient do
     describe 'POST' do
       let(:body) { { request: { test: 'test' } } }
       let(:headers) { { content_type: 'application/json' } }
-      let(:call) { ServiceClient::Call.post('https://mock-http-requests.herokuapp.com/200', headers: headers, body: body) }
+      let(:call) { ServiceClient::Call.post('https://mock-http-requests.onrender.com/200', headers: headers, body: body) }
 
       it 'have an method with response class instance' do
         expect(call).to be_a(ServiceClient::Response)
@@ -59,7 +59,7 @@ RSpec.describe ServiceClient do
     describe 'PUT' do
       let(:body) { { request: { test: 'test' } } }
       let(:headers) { { content_type: 'application/json' } }
-      let(:call) { ServiceClient::Call.put('https://mock-http-requests.herokuapp.com/200', headers: headers, body: body) }
+      let(:call) { ServiceClient::Call.put('https://mock-http-requests.onrender.com/200', headers: headers, body: body) }
 
       it 'have an method with response class instance' do
         expect(call).to be_a(ServiceClient::Response)
@@ -83,7 +83,7 @@ RSpec.describe ServiceClient do
     end
   
     describe 'DELETE' do
-      let(:call) { ServiceClient::Call.delete('https://mock-http-requests.herokuapp.com/200') }
+      let(:call) { ServiceClient::Call.delete('https://mock-http-requests.onrender.com/200') }
 
       it 'have an method with response class instance' do
         expect(call).to be_a(ServiceClient::Response)

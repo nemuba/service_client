@@ -10,7 +10,7 @@ RSpec.describe 'ServiceClient raise errors' do
 
       it "returns #{status} status" do
         expect { 
-          ServiceClient::Call.get("https://mock-http-requests.herokuapp.com/#{status}")
+          ServiceClient::Call.get("https://mock-http-requests.onrender.com/#{status}")
         }.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
       end
     end
@@ -22,7 +22,7 @@ RSpec.describe 'ServiceClient raise errors' do
 
       it "returns #{status} status" do
         expect { 
-          ServiceClient::Call.post("https://mock-http-requests.herokuapp.com/#{status}", headers: headers, body: body)
+          ServiceClient::Call.post("https://mock-http-requests.onrender.com/#{status}", headers: headers, body: body)
         }.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe 'ServiceClient raise errors' do
 
       it "returns #{status} status" do
         expect { 
-          ServiceClient::Call.put("https://mock-http-requests.herokuapp.com/#{status}", headers: headers, body: body)
+          ServiceClient::Call.put("https://mock-http-requests.onrender.com/#{status}", headers: headers, body: body)
         }.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
       end
     end
@@ -46,7 +46,7 @@ RSpec.describe 'ServiceClient raise errors' do
 
       it "returns #{status} status" do
         expect { 
-          ServiceClient::Call.delete("https://mock-http-requests.herokuapp.com/#{status}")
+          ServiceClient::Call.delete("https://mock-http-requests.onrender.com/#{status}")
         }.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
       end
     end

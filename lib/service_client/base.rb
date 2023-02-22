@@ -4,11 +4,11 @@ require 'httparty'
 require_relative 'response'
 
 module ServiceClient
+  # ParamsRequired error
+  class ParamsRequired < StandardError; end
+
   # Base class
   class Base
-    # ParamsRequired error
-    class ParamsRequired < StandardError; end
-
     class << self
       def post(url = nil, headers: nil, body: nil)
         raise_params_required(url: url, headers: headers, body: body)

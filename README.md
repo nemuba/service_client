@@ -12,19 +12,23 @@ gem 'service_client'
 
 And then execute:
 
-    $ bundle install
+```bash
+bundle install
+```
 
 Or install it yourself as:
 
-    $ gem install service_client
+```bash
+gem install service_client
+```
 
 ## Usage
 
 Basic usage example:
 
 ```ruby
-class Request < ServiceClient::Call
-  def customer(id)
+class CustomerClient < ServiceClient::Base
+  def find(id)
     response = get("https://api.com/customers/#{id}")
 
     response.data
@@ -39,7 +43,7 @@ class Request < ServiceClient::Call
   # All errors of HTTP status code
   end
 
-  def customers
+  def all
     get(nil)
   rescue ServiceClient::ParamsRequired => e
     puts e.message
@@ -48,26 +52,26 @@ end
 
 ```
 
-# Methods of class
+## Methods of class
 
 ```ruby
 # GET
-ServiceClient::Call.get(url, headers:)
+ServiceClient::Base.get(url, headers:)
 
 # POST
-ServiceClient::Call.post(url, headers:, body:)
+ServiceClient::Base.post(url, headers:, body:)
 
 # PUT
-ServiceClient::Call.put(url, headers:, body:)
+ServiceClient::Base.put(url, headers:, body:)
 
 # DELETE
-ServiceClient::Call.delete(url, headers:, body:)
+ServiceClient::Base.delete(url, headers:, body:)
 ```
 
-# Classes of errors
+## Classes of errors
 
 ```ruby
-# 400 – Bad Request
+  # 400 – Bad Request
   ServiceClient::Errors::BadRequestError
   # 401 – Unauthorized
   ServiceClient::Errors::UnauthorizedError

@@ -188,7 +188,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#raise_error-instance_method" title="#raise_error (instance method)">#<strong>raise_error</strong>(code, response)  &#x21d2; Object </a>
+      <a href="#raise_error-instance_method" title="#raise_error (instance method)">#<strong>raise_error</strong>(code, response)  &#x21d2; void </a>
     
 
     
@@ -202,7 +202,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Raises an error based on the given HTTP response.</p>
+</div></span>
   
 </li>
 
@@ -219,7 +221,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="raise_error-instance_method">
   
-    #<strong>raise_error</strong>(code, response)  &#x21d2; <tt>Object</tt> 
+    #<strong>raise_error</strong>(code, response)  &#x21d2; <tt>void</tt> 
   
 
   
@@ -227,12 +229,52 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Raises an error based on the given HTTP response.</p>
+
+<p>raise [BaseError] The error that corresponds to the given HTTP response code.</p>
+
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>code</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The HTTP response code.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>response</span>
+      
+      
+        <span class='type'>(<tt>HTTParty::Response</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The HTTP response.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Raises:</p>
 <ul class="raise">
   
@@ -253,12 +295,12 @@
       <pre class="lines">
 
 
-155
-156
-157</pre>
+167
+168
+169</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/service_client/errors.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'lib/service_client/errors.rb', line 167</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_raise_error'>raise_error</span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="#ERRORS-constant" title="ServiceClient::Errors::ERRORS (constant)">ERRORS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#ERRORS-constant" title="ServiceClient::Errors::ERRORS (constant)">ERRORS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
@@ -273,7 +315,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Feb 22 21:05:56 2023 by
+  Generated on Thu Feb 23 08:25:38 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-2.7.1).
 </div>

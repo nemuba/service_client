@@ -1,19 +1,25 @@
 # frozen_string_literal: true
 
-# Purpose: ServiceClient::Errors module
+# This module defines a set of error classes for common HTTP status codes. Each error class inherits from BaseError,
+# which itself inherits from Ruby's StandardError class. These error classes are then used by the ServiceClient
+# module to raise specific errors for specific HTTP status codes.
 
-# Compare this snippet from lib/service_client/errors.rb:
 module ServiceClient
   # Errors module
   module Errors
-    # StandardError class
+    # BaseError class
     class BaseError < StandardError
-      attr_reader :response
-
+      # Initializes a new instance of the BaseError class with the given message and HTTP response.
+      # @param msg [String] The error message.
+      # @param response [HTTParty::Response] The HTTP response that caused the error.
       def initialize(msg, response)
         @response = response
         super(msg)
       end
+
+      # Returns the HTTP response that caused the error.
+      # @return [HTTParty::Response] The HTTP response.
+      attr_reader :response
     end
 
     # 400 – Bad Request
@@ -72,7 +78,7 @@ module ServiceClient
     class NoResponseError < BaseError; end
     # 449 – Retry With
     class RetryWithError < BaseError; end
-    # 450 – Bllocked by Windows Parental Controls
+    # 450 – Blocked by Windows Parental Controls
     class BlockedByWindowsParentalControlsError < BaseError; end
     # 451 – Unavailable For Legal Reasons
     class UnavailableForLegalReasonsError < BaseError; end
@@ -152,6 +158,12 @@ module ServiceClient
       '599': NetworkConnectTimeoutError,
     }.freeze
 
+    # Raises an error based on the given HTTP response.
+    #
+    # @param code [String] The HTTP response code.
+    # @param response [HTTParty::Response] The HTTP response.
+    # raise [BaseError] The error that corresponds to the given HTTP response code.
+    # @return [void]
     def raise_error(code, response)
       raise ERRORS[code.to_sym].new(ERRORS[code.to_sym].class.name, response)
     end

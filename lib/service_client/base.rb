@@ -4,6 +4,11 @@ require 'httparty'
 require_relative 'response'
 
 module ServiceClient
+  # Raised when a required param is nil.
+  #
+  # @example Raise an error if any of the required params are nil.
+  #  raise ParamsRequired, "Params: #{params_required(params)} are required" if params_nil?(params)
+  class ParamsRequired < StandardError; end
   # This class provides a lightweight and flexible way to make HTTP requests
   # in Ruby projects.
   #

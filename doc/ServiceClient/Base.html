@@ -328,12 +328,12 @@
       <pre class="lines">
 
 
-19
-20
-21</pre>
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/service_client/base.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/service_client/base.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_base_url'>base_url</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@base_url</span> <span class='op'>=</span> <span class='id identifier rubyid_url'>url</span>
@@ -391,12 +391,12 @@
       <pre class="lines">
 
 
-26
-27
-28</pre>
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/service_client/base.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/service_client/base.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_headers'>default_headers</span><span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@default_headers</span> <span class='op'>=</span> <span class='id identifier rubyid_headers'>headers</span>
@@ -472,12 +472,12 @@
       <pre class="lines">
 
 
-60
-61
-62</pre>
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/service_client/base.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/service_client/base.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:delete</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='id identifier rubyid_headers'>headers</span><span class='rparen'>)</span>
@@ -553,12 +553,12 @@
       <pre class="lines">
 
 
-43
-44
-45</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/service_client/base.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/service_client/base.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:get</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='id identifier rubyid_headers'>headers</span><span class='rparen'>)</span>
@@ -652,12 +652,12 @@
       <pre class="lines">
 
 
-35
-36
-37</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/service_client/base.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/service_client/base.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>body:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:post</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
@@ -751,12 +751,12 @@
       <pre class="lines">
 
 
-52
-53
-54</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/service_client/base.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/service_client/base.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_put'>put</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>body:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:put</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
@@ -771,7 +771,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Feb 23 08:25:38 2023 by
+  Generated on Thu Feb 23 08:38:58 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-2.7.1).
 </div>

@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.description   = "Service client"
   spec.homepage      = "https://github.com/nemuba/service_client"
   spec.license       = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
-
+  spec.required_ruby_version = '>= 2.7.1'
+  spec.extra_rdoc_files = ['doc/index.html']
 
   spec.metadata["homepage_uri"] = "https://github.com/nemuba/service_client"
   spec.metadata["source_code_uri"] = "https://github.com/nemuba/service_client"

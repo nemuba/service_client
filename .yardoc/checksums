@@ -1,0 +1,5 @@
+lib/service_client.rb 83809cc9c21f49a419ccc873c1c3fd7d99679104
+lib/service_client/base.rb fbe91e55bd87736ef6056b3e1660b987a850b5e8
+lib/service_client/errors.rb 8e6791ecefee0ef05bec20bd78d0137e68856184
+lib/service_client/version.rb e55f4caab17eaddee6c380bb8dd75b127a2e72a6
+lib/service_client/response.rb c9f336a0651269687ed063ffd96197cd93aff8eb

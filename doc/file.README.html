@@ -85,137 +85,142 @@ gem install service_client
 
 <p>Basic usage example:</p>
 
-<p>```ruby
-class CustomerClient &lt; ServiceClient::Base
-  def find(id)
-    response = get(“https://api.com/customers/#id”)</p>
+<pre class="code ruby"><code class="ruby">
+<span class='kw'>class</span> <span class='const'>CustomerClientServiceClient</span><span class='op'>::</span><span class='const'>Base</span>
+  <span class='id identifier rubyid_base_url'>base_url</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>https://api.com</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_default_headers'>default_headers</span> <span class='label'>content_type:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/json</span><span class='tstring_end'>&#39;</span></span>
 
-<pre class="code ruby"><code class="ruby">response.data   rescue ServiceClient::Errors::NoDataFoundError =&gt; e
-puts e.response.code # 404
-puts e.response.headers
-puts e.response.data    rescue ServiceClient::Errors::InternalServerError =&gt; e
-puts e.response.code # 500
-puts e.response.headers
-puts e.response.data   # All errors of HTTP status code   end
+  <span class='kw'>def</span> <span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>customers/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'>NoDataFoundError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_code'>code</span> <span class='comment'># 404
+</span>    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span> 
+  <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/InternalServerError.html" title="ServiceClient::Errors::InternalServerError (class)">InternalServerError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_code'>code</span> <span class='comment'># 500
+</span>    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
+  <span class='comment'># All errors of HTTP status code
+</span>  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_all'>all</span>
+    <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/ParamsRequired.html" title="ServiceClient::ParamsRequired (class)">ParamsRequired</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
 </code></pre>
-
-<p>def all
-    get(nil)
-  rescue ServiceClient::ParamsRequired =&gt; e
-    puts e.message
-  end
-end</p>
-
-<p>```</p>
 
 <h2 id="methods-of-class">Methods of class</h2>
 
-<p>```ruby
-# GET
-ServiceClient::Base.get(url, headers:)</p>
+<pre class="code ruby"><code class="ruby">
+<span class='comment'># GET
+</span><span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Base.html" title="ServiceClient::Base (class)">Base</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="ServiceClient/Base.html#get-class_method" title="ServiceClient::Base.get (method)">get</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>headers:</span><span class='rparen'>)</span>
 
-<h1 id="post">POST</h1>
-<p>ServiceClient::Base.post(url, headers:, body:)</p>
+<span class='comment'># POST
+</span><span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Base.html" title="ServiceClient::Base (class)">Base</a></span></span><span class='period'>.</span><span class='id identifier rubyid_post'><span class='object_link'><a href="ServiceClient/Base.html#post-class_method" title="ServiceClient::Base.post (method)">post</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>headers:</span><span class='comma'>,</span> <span class='label'>body:</span><span class='rparen'>)</span>
 
-<h1 id="put">PUT</h1>
-<p>ServiceClient::Base.put(url, headers:, body:)</p>
+<span class='comment'># PUT
+</span><span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Base.html" title="ServiceClient::Base (class)">Base</a></span></span><span class='period'>.</span><span class='id identifier rubyid_put'><span class='object_link'><a href="ServiceClient/Base.html#put-class_method" title="ServiceClient::Base.put (method)">put</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>headers:</span><span class='comma'>,</span> <span class='label'>body:</span><span class='rparen'>)</span>
 
-<h1 id="delete">DELETE</h1>
-<p>ServiceClient::Base.delete(url, headers:, body:)
-```</p>
+<span class='comment'># DELETE
+</span><span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Base.html" title="ServiceClient::Base (class)">Base</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete'><span class='object_link'><a href="ServiceClient/Base.html#delete-class_method" title="ServiceClient::Base.delete (method)">delete</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>headers:</span><span class='comma'>,</span> <span class='label'>body:</span><span class='rparen'>)</span>
+</code></pre>
 
 <h2 id="classes-of-errors">Classes of errors</h2>
 
-<p><code>ruby
-  # 400 – Bad Request
-  ServiceClient::Errors::BadRequestError
-  # 401 – Unauthorized
-  ServiceClient::Errors::UnauthorizedError
-  # 402 – Payment Required
-  ServiceClient::Errors::PaymentRequiredError
-  # 403 – Forbidden
-  ServiceClient::Errors::ForbiddenError
-  # 404 – Not Found
-  ServiceClient::Errors::NotFoundError
-  # 405 – Method Not Allowed
-  ServiceClient::Errors::MethodNotAllowedError
-  # 406 – Not Acceptable
-  ServiceClient::Errors::NotAcceptableError
-  # 407 – Proxy Authentication Required
-  ServiceClient::Errors::ProxyAuthenticationRequiredError
-  # 408 – Request Timeout
-  ServiceClient::Errors::RequestTimeoutError
-  # 409 – Conflict
-  ServiceClient::Errors::ConflictError
-  # 410 – Gone
-  ServiceClient::Errors::GoneError
-  # 411 – Length Required
-  ServiceClient::Errors::LengthRequiredError
-  # 412 – Precondition Failed
-  ServiceClient::Errors::PreconditionFailedError
-  # 413 – Request Entity Too Large
-  ServiceClient::Errors::RequestEntityTooLargeError
-  # 414 – Request-URI Too Long
-  ServiceClient::Errors::RequestURITooLongError
-  # 415 – Unsupported Media Type
-  ServiceClient::Errors::UnsupportedMediaTypeError
-  # 416 – Requested Range Not Satisfiable
-  ServiceClient::Errors::RequestedRangeNotSatisfiableError
-  # 417 – Expectation Failed
-  ServiceClient::Errors::ExpectationFailedError
-  # 420 – Enhance Your Calm
-  ServiceClient::Errors::EnhanceYourCalmError
-  # 422 – Unprocessable Entity
-  ServiceClient::Errors::UnprocessableEntityError
-  # 423 – Locked
-  ServiceClient::Errors::LockedError
-  # 424 – Failed Dependency
-  ServiceClient::Errors::FailedDependencyError
-  # 426 – Upgrade Required
-  ServiceClient::Errors::UpgradeRequiredError
-  # 428 – Precondition Required
-  ServiceClient::Errors::PreconditionRequiredError
-  # 429 – Too Many Requests
-  ServiceClient::Errors::TooManyRequestsError
-  # 431 – Request Header Fields Too Large
-  ServiceClient::Errors::RequestHeaderFieldsTooLargeError
-  # 444 – No Response
-  ServiceClient::Errors::NoResponseError
-  # 449 – Retry With
-  ServiceClient::Errors::RetryWithError
-  # 450 – Bllocked by Windows Parental Controls
-  ServiceClient::Errors::BlockedByWindowsParentalControlsError
-  # 451 – Unavailable For Legal Reasons
-  ServiceClient::Errors::UnavailableForLegalReasonsError
-  # 499 – Client Closed Request
-  ServiceClient::Errors::ClientClosedRequestError
-  # 500 – Internal Server Error
-  ServiceClient::Errors::InternalServerError
-  # 501 – Not Implemented
-  ServiceClient::Errors::NotImplementedError
-  # 502 – Bad Gateway
-  ServiceClient::Errors::BadGatewayError
-  # 503 – Service Unavailable
-  ServiceClient::Errors::ServiceUnavailableError
-  # 504 – Gateway Timeout
-  ServiceClient::Errors::GatewayTimeoutError
-  # 505 – HTTP Version Not Supported
-  ServiceClient::Errors::HTTPVersionNotSupportedError
-  # 506 – Variant Also Negotiates
-  ServiceClient::Errors::VariantAlsoNegotiatesError
-  # 507 – Insufficient Storage
-  ServiceClient::Errors::InsufficientStorageError
-  # 508 – Loop Detected
-  ServiceClient::Errors::LoopDetectedError
-  # 510 – Not Extended
-  ServiceClient::Errors::NotExtendedError
-  # 511 – Network Authentication Required
-  ServiceClient::Errors::NetworkAuthenticationRequiredError
-  # 598 – Network Read Timeout Error
-  ServiceClient::Errors::NetworkReadTimeoutError
-  # 599 – Network Connect Timeout Error
-  ServiceClient::Errors::NetworkConnectTimeoutError
-</code></p>
+<pre class="code ruby"><code class="ruby">
+  <span class='comment'># 400 – Bad Request
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/BadRequestError.html" title="ServiceClient::Errors::BadRequestError (class)">BadRequestError</a></span></span>
+  <span class='comment'># 401 – Unauthorized
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/UnauthorizedError.html" title="ServiceClient::Errors::UnauthorizedError (class)">UnauthorizedError</a></span></span>
+  <span class='comment'># 402 – Payment Required
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/PaymentRequiredError.html" title="ServiceClient::Errors::PaymentRequiredError (class)">PaymentRequiredError</a></span></span>
+  <span class='comment'># 403 – Forbidden
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/ForbiddenError.html" title="ServiceClient::Errors::ForbiddenError (class)">ForbiddenError</a></span></span>
+  <span class='comment'># 404 – Not Found
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/NotFoundError.html" title="ServiceClient::Errors::NotFoundError (class)">NotFoundError</a></span></span>
+  <span class='comment'># 405 – Method Not Allowed
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/MethodNotAllowedError.html" title="ServiceClient::Errors::MethodNotAllowedError (class)">MethodNotAllowedError</a></span></span>
+  <span class='comment'># 406 – Not Acceptable
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/NotAcceptableError.html" title="ServiceClient::Errors::NotAcceptableError (class)">NotAcceptableError</a></span></span>
+  <span class='comment'># 407 – Proxy Authentication Required
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/ProxyAuthenticationRequiredError.html" title="ServiceClient::Errors::ProxyAuthenticationRequiredError (class)">ProxyAuthenticationRequiredError</a></span></span>
+  <span class='comment'># 408 – Request Timeout
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/RequestTimeoutError.html" title="ServiceClient::Errors::RequestTimeoutError (class)">RequestTimeoutError</a></span></span>
+  <span class='comment'># 409 – Conflict
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/ConflictError.html" title="ServiceClient::Errors::ConflictError (class)">ConflictError</a></span></span>
+  <span class='comment'># 410 – Gone
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/GoneError.html" title="ServiceClient::Errors::GoneError (class)">GoneError</a></span></span>
+  <span class='comment'># 411 – Length Required
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/LengthRequiredError.html" title="ServiceClient::Errors::LengthRequiredError (class)">LengthRequiredError</a></span></span>
+  <span class='comment'># 412 – Precondition Failed
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/PreconditionFailedError.html" title="ServiceClient::Errors::PreconditionFailedError (class)">PreconditionFailedError</a></span></span>
+  <span class='comment'># 413 – Request Entity Too Large
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/RequestEntityTooLargeError.html" title="ServiceClient::Errors::RequestEntityTooLargeError (class)">RequestEntityTooLargeError</a></span></span>
+  <span class='comment'># 414 – Request-URI Too Long
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/RequestURITooLongError.html" title="ServiceClient::Errors::RequestURITooLongError (class)">RequestURITooLongError</a></span></span>
+  <span class='comment'># 415 – Unsupported Media Type
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/UnsupportedMediaTypeError.html" title="ServiceClient::Errors::UnsupportedMediaTypeError (class)">UnsupportedMediaTypeError</a></span></span>
+  <span class='comment'># 416 – Requested Range Not Satisfiable
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/RequestedRangeNotSatisfiableError.html" title="ServiceClient::Errors::RequestedRangeNotSatisfiableError (class)">RequestedRangeNotSatisfiableError</a></span></span>
+  <span class='comment'># 417 – Expectation Failed
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/ExpectationFailedError.html" title="ServiceClient::Errors::ExpectationFailedError (class)">ExpectationFailedError</a></span></span>
+  <span class='comment'># 420 – Enhance Your Calm
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/EnhanceYourCalmError.html" title="ServiceClient::Errors::EnhanceYourCalmError (class)">EnhanceYourCalmError</a></span></span>
+  <span class='comment'># 422 – Unprocessable Entity
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/UnprocessableEntityError.html" title="ServiceClient::Errors::UnprocessableEntityError (class)">UnprocessableEntityError</a></span></span>
+  <span class='comment'># 423 – Locked
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/LockedError.html" title="ServiceClient::Errors::LockedError (class)">LockedError</a></span></span>
+  <span class='comment'># 424 – Failed Dependency
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/FailedDependencyError.html" title="ServiceClient::Errors::FailedDependencyError (class)">FailedDependencyError</a></span></span>
+  <span class='comment'># 426 – Upgrade Required
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/UpgradeRequiredError.html" title="ServiceClient::Errors::UpgradeRequiredError (class)">UpgradeRequiredError</a></span></span>
+  <span class='comment'># 428 – Precondition Required
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/PreconditionRequiredError.html" title="ServiceClient::Errors::PreconditionRequiredError (class)">PreconditionRequiredError</a></span></span>
+  <span class='comment'># 429 – Too Many Requests
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/TooManyRequestsError.html" title="ServiceClient::Errors::TooManyRequestsError (class)">TooManyRequestsError</a></span></span>
+  <span class='comment'># 431 – Request Header Fields Too Large
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/RequestHeaderFieldsTooLargeError.html" title="ServiceClient::Errors::RequestHeaderFieldsTooLargeError (class)">RequestHeaderFieldsTooLargeError</a></span></span>
+  <span class='comment'># 444 – No Response
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/NoResponseError.html" title="ServiceClient::Errors::NoResponseError (class)">NoResponseError</a></span></span>
+  <span class='comment'># 449 – Retry With
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/RetryWithError.html" title="ServiceClient::Errors::RetryWithError (class)">RetryWithError</a></span></span>
+  <span class='comment'># 450 – Bllocked by Windows Parental Controls
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/BlockedByWindowsParentalControlsError.html" title="ServiceClient::Errors::BlockedByWindowsParentalControlsError (class)">BlockedByWindowsParentalControlsError</a></span></span>
+  <span class='comment'># 451 – Unavailable For Legal Reasons
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/UnavailableForLegalReasonsError.html" title="ServiceClient::Errors::UnavailableForLegalReasonsError (class)">UnavailableForLegalReasonsError</a></span></span>
+  <span class='comment'># 499 – Client Closed Request
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/ClientClosedRequestError.html" title="ServiceClient::Errors::ClientClosedRequestError (class)">ClientClosedRequestError</a></span></span>
+  <span class='comment'># 500 – Internal Server Error
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/InternalServerError.html" title="ServiceClient::Errors::InternalServerError (class)">InternalServerError</a></span></span>
+  <span class='comment'># 501 – Not Implemented
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/NotImplementedError.html" title="ServiceClient::Errors::NotImplementedError (class)">NotImplementedError</a></span></span>
+  <span class='comment'># 502 – Bad Gateway
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/BadGatewayError.html" title="ServiceClient::Errors::BadGatewayError (class)">BadGatewayError</a></span></span>
+  <span class='comment'># 503 – Service Unavailable
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/ServiceUnavailableError.html" title="ServiceClient::Errors::ServiceUnavailableError (class)">ServiceUnavailableError</a></span></span>
+  <span class='comment'># 504 – Gateway Timeout
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/GatewayTimeoutError.html" title="ServiceClient::Errors::GatewayTimeoutError (class)">GatewayTimeoutError</a></span></span>
+  <span class='comment'># 505 – HTTP Version Not Supported
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/HTTPVersionNotSupportedError.html" title="ServiceClient::Errors::HTTPVersionNotSupportedError (class)">HTTPVersionNotSupportedError</a></span></span>
+  <span class='comment'># 506 – Variant Also Negotiates
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/VariantAlsoNegotiatesError.html" title="ServiceClient::Errors::VariantAlsoNegotiatesError (class)">VariantAlsoNegotiatesError</a></span></span>
+  <span class='comment'># 507 – Insufficient Storage
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/InsufficientStorageError.html" title="ServiceClient::Errors::InsufficientStorageError (class)">InsufficientStorageError</a></span></span>
+  <span class='comment'># 508 – Loop Detected
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/LoopDetectedError.html" title="ServiceClient::Errors::LoopDetectedError (class)">LoopDetectedError</a></span></span>
+  <span class='comment'># 510 – Not Extended
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/NotExtendedError.html" title="ServiceClient::Errors::NotExtendedError (class)">NotExtendedError</a></span></span>
+  <span class='comment'># 511 – Network Authentication Required
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/NetworkAuthenticationRequiredError.html" title="ServiceClient::Errors::NetworkAuthenticationRequiredError (class)">NetworkAuthenticationRequiredError</a></span></span>
+  <span class='comment'># 598 – Network Read Timeout Error
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/NetworkReadTimeoutError.html" title="ServiceClient::Errors::NetworkReadTimeoutError (class)">NetworkReadTimeoutError</a></span></span>
+  <span class='comment'># 599 – Network Connect Timeout Error
+</span>  <span class='const'><span class='object_link'><a href="ServiceClient.html" title="ServiceClient (module)">ServiceClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors.html" title="ServiceClient::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ServiceClient/Errors/NetworkConnectTimeoutError.html" title="ServiceClient::Errors::NetworkConnectTimeoutError (class)">NetworkConnectTimeoutError</a></span></span>
+</code></pre>
 
 <h2 id="development">Development</h2>
 
@@ -233,9 +238,9 @@ ServiceClient::Base.get(url, headers:)</p>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Feb 23 08:38:58 2023 by
+  Generated on Sat Feb 25 13:12:15 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.1).
+  0.9.28 (ruby-3.2.0).
 </div>
 
     </div>

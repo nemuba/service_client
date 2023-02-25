@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    service_client (0.1.8)
+    service_client (0.1.9)
       httparty (~> 0.18.0)
 
 GEM

@@ -26,10 +26,14 @@ gem install service_client
 
 Basic usage example:
 
-```ruby
-class CustomerClient < ServiceClient::Base
+<pre>
+<code>
+class CustomerClientServiceClient::Base
+  base_url 'https://api.com'
+  default_headers content_type: 'application/json'
+
   def find(id)
-    response = get("https://api.com/customers/#{id}")
+    response = get("customers/#{id}")
 
     response.data
   rescue ServiceClient::Errors::NoDataFoundError => e
@@ -49,12 +53,13 @@ class CustomerClient < ServiceClient::Base
     puts e.message
   end
 end
-
-```
+</code>
+</pre>
 
 ## Methods of class
 
-```ruby
+<pre>
+<code>
 # GET
 ServiceClient::Base.get(url, headers:)
 
@@ -66,11 +71,13 @@ ServiceClient::Base.put(url, headers:, body:)
 
 # DELETE
 ServiceClient::Base.delete(url, headers:, body:)
-```
+</code>
+</pre>
 
 ## Classes of errors
 
-```ruby
+<pre>
+<code>
   # 400 – Bad Request
   ServiceClient::Errors::BadRequestError
   # 401 – Unauthorized
@@ -159,7 +166,8 @@ ServiceClient::Base.delete(url, headers:, body:)
   ServiceClient::Errors::NetworkReadTimeoutError
   # 599 – Network Connect Timeout Error
   ServiceClient::Errors::NetworkConnectTimeoutError
-```
+  </code>
+</pre>
 
 ## Development
 

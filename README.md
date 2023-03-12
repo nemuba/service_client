@@ -27,8 +27,8 @@ gem install service_client
 Basic usage example:
 
 <pre>
-<code>
-class CustomerClientServiceClient::Base
+<code class="code ruby">
+class CustomerClient < ServiceClient::Base
   base_url 'https://api.com'
   default_headers content_type: 'application/json'
 

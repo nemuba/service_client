@@ -3,7 +3,7 @@
 require 'rack/utils'
 
 RSpec.describe 'ServiceClient raise errors' do
-  let(:headers) { { content_type:  'application/json' } }
+  let(:headers) { { content_type: 'application/json' } }
   let(:body) { { request: { name: 'John Doe' } } }
 
   describe 'GET' do
@@ -11,9 +11,9 @@ RSpec.describe 'ServiceClient raise errors' do
       next unless Rack::Utils::HTTP_STATUS_CODES.key?(status)
 
       it "returns #{status} status" do
-        expect { 
+        expect do
           ServiceClient::Base.get("https://mock-http-requests.onrender.com/#{status}")
-        }.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
+        end.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
       end
     end
   end
@@ -23,9 +23,9 @@ RSpec.describe 'ServiceClient raise errors' do
       next unless Rack::Utils::HTTP_STATUS_CODES.key?(status)
 
       it "returns #{status} status" do
-        expect {
+        expect do
           ServiceClient::Base.post("https://mock-http-requests.onrender.com/#{status}", headers: headers, body: body)
-        }.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
+        end.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
       end
     end
   end
@@ -35,9 +35,9 @@ RSpec.describe 'ServiceClient raise errors' do
       next unless Rack::Utils::HTTP_STATUS_CODES.key?(status)
 
       it "returns #{status} status" do
-        expect { 
+        expect do
           ServiceClient::Base.put("https://mock-http-requests.onrender.com/#{status}", headers: headers, body: body)
-        }.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
+        end.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
       end
     end
   end
@@ -47,9 +47,9 @@ RSpec.describe 'ServiceClient raise errors' do
       next unless Rack::Utils::HTTP_STATUS_CODES.key?(status)
 
       it "returns #{status} status" do
-        expect { 
+        expect do
           ServiceClient::Base.delete("https://mock-http-requests.onrender.com/#{status}")
-        }.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
+        end.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
       end
     end
   end

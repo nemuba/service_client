@@ -40,7 +40,8 @@ module ServiceClient
       #
       # @param response [HTTParty::Response] The HTTP response object.
       # @return [ServiceClient::Response] Returns itself if the response was successful.
-      # @raise [ServiceClient::Error] Raises an error with the response code and object if the response was unsuccessful.
+      # @raise [ServiceClient::Error] Raises an error with the response code
+      # and object if the response was unsuccessful.
       def call(response)
         new(response).call
       end

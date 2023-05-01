@@ -9,6 +9,7 @@ module ServiceClient
   # @example Raise an error if any of the required params are nil.
   #  raise ParamsRequired, "Params: #{params_required(params)} are required" if params_nil?(params)
   class ParamsRequired < StandardError; end
+
   # This class provides a lightweight and flexible way to make HTTP requests
   # in Ruby projects.
   #
@@ -96,7 +97,7 @@ module ServiceClient
       end
 
       # Raises an error if any of the required params are nil.
-      # 
+      #
       # @param params [Hash] the params to check for nil values
       # @raise [ParamsRequired] if any of the params are nil
       # @return [nil] if all params are not nil

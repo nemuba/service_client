@@ -81,7 +81,7 @@ RSpec.describe ServiceClient do
         expect { ServiceClient::Base.put(nil, body: nil) }.to raise_error(ServiceClient::ParamsRequired)
       end
     end
-  
+
     describe 'DELETE' do
       let(:base) { ServiceClient::Base.delete('https://mock-http-requests.onrender.com/200') }
 

@@ -155,7 +155,7 @@ module ServiceClient
       '510': NotExtendedError,
       '511': NetworkAuthenticationRequiredError,
       '598': NetworkReadTimeoutError,
-      '599': NetworkConnectTimeoutError,
+      '599': NetworkConnectTimeoutError
     }.freeze
 
     # Raises an error based on the given HTTP response.

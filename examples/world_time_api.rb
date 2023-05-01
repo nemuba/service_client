@@ -27,4 +27,3 @@ class WorldTimeApi < ServiceClient::Base
     end
   end
 end
-

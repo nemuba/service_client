@@ -1,4 +1,4 @@
-# ServiceClient
+*# ServiceClient
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/service_client`. To experiment with that code, run `bin/console` for an interactive prompt.
 
@@ -26,8 +26,7 @@ gem install service_client
 
 Basic usage example:
 
-<pre>
-<code class="code ruby">
+```ruby
 class CustomerClient < ServiceClient::Base
   base_url 'https://api.com'
   default_headers content_type: 'application/json'
@@ -53,13 +52,11 @@ class CustomerClient < ServiceClient::Base
     puts e.message
   end
 end
-</code>
-</pre>
+```
 
 ## Methods of class
 
-<pre>
-<code>
+```ruby
 # GET
 ServiceClient::Base.get(url, headers:)
 
@@ -71,13 +68,11 @@ ServiceClient::Base.put(url, headers:, body:)
 
 # DELETE
 ServiceClient::Base.delete(url, headers:, body:)
-</code>
-</pre>
+```
 
 ## Classes of errors
 
-<pre>
-<code>
+```ruby
   # 400 – Bad Request
   ServiceClient::Errors::BadRequestError
   # 401 – Unauthorized
@@ -166,8 +161,7 @@ ServiceClient::Base.delete(url, headers:, body:)
   ServiceClient::Errors::NetworkReadTimeoutError
   # 599 – Network Connect Timeout Error
   ServiceClient::Errors::NetworkConnectTimeoutError
-  </code>
-</pre>
+```
 
 ## Development
 
@@ -177,7 +171,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/nemuba/service_client.
+Bug reports and pull requests are welcome on GitHub at <https://github.com/nemuba/service_client>.
 
 ## License
 

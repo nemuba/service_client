@@ -165,6 +165,8 @@ module ServiceClient
     # raise [BaseError] The error that corresponds to the given HTTP response code.
     # @return [void]
     def raise_error(code, response)
+      raise BaseError.new('Unknown error', response) if [code, response].any?(&:nil?)
+
       raise ERRORS[code.to_sym].new(ERRORS[code.to_sym].class.name, response)
     end
   end

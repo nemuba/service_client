@@ -3,53 +3,22 @@
 require 'rack/utils'
 
 RSpec.describe 'ServiceClient raise errors' do
-  let(:headers) { { content_type: 'application/json' } }
-  let(:body) { { request: { name: 'John Doe' } } }
+  Rack::Utils::HTTP_STATUS_CODES.keys.select { |key| key >= 400 }.each do |status|
+    %i[get delete get delete].each do |method|
+      describe method.to_s.upcase do
+        let(:headers) { { content_type: 'application/json' } }
+        let(:body) { { request: { name: 'John Doe' } } }
+        let(:url) { "https://mock-http-requests.onrender.com/#{status}" }
 
-  describe 'GET' do
-    (400..511).to_a.each do |status|
-      next unless Rack::Utils::HTTP_STATUS_CODES.key?(status)
-
-      it "returns #{status} status" do
-        expect do
-          ServiceClient::Base.get("https://mock-http-requests.onrender.com/#{status}")
-        end.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
-      end
-    end
-  end
-
-  describe 'POST' do
-    (400..511).to_a.each do |status|
-      next unless Rack::Utils::HTTP_STATUS_CODES.key?(status)
-
-      it "returns #{status} status" do
-        expect do
-          ServiceClient::Base.post("https://mock-http-requests.onrender.com/#{status}", headers: headers, body: body)
-        end.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
-      end
-    end
-  end
-
-  describe 'PUT' do
-    (400..511).to_a.each do |status|
-      next unless Rack::Utils::HTTP_STATUS_CODES.key?(status)
-
-      it "returns #{status} status" do
-        expect do
-          ServiceClient::Base.put("https://mock-http-requests.onrender.com/#{status}", headers: headers, body: body)
-        end.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
-      end
-    end
-  end
-
-  describe 'DELETE' do
-    (400..511).to_a.each do |status|
-      next unless Rack::Utils::HTTP_STATUS_CODES.key?(status)
-
-      it "returns #{status} status" do
-        expect do
-          ServiceClient::Base.delete("https://mock-http-requests.onrender.com/#{status}")
-        end.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
+        it "returns #{status} status" do
+          expect do
+            if %i[get delete].include?(method)
+              ServiceClient::Base.send(method, url)
+            else
+              ServiceClient::Base.send(method, url, headers: headers, body: body)
+            end
+          end.to raise_error(ServiceClient::Errors::ERRORS[status.to_s.to_sym])
+        end
       end
     end
   end

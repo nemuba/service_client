@@ -1,23 +1,27 @@
 # frozen_string_literal: true
 
+require 'rack/utils'
 require_relative 'errors'
 
 module ServiceClient
   # The Response class encapsulates the HTTP response received by the ServiceClient gem.
   #
   # @attr_reader [Integer] code The HTTP status code of the response.
+  # @attr_reader [String] status The human-readable HTTP status phrase (e.g. "OK", "Not Found").
+  #   Returns "Unknown Status <code>" for unrecognized codes.
   # @attr_reader [Hash, Array, String] data The parsed body of the response.
   # @attr_reader [Hash] headers The HTTP headers of the response.
   class Response
     include ServiceClient::Errors
 
-    attr_reader :code, :data, :headers
+    attr_reader :code, :status, :data, :headers
 
     # Initializes a new instance of Response with the given HTTP response object.
     #
     # @param response [HTTParty::Response] The HTTP response object.
     def initialize(response)
       @code = response.code
+      @status = Rack::Utils::HTTP_STATUS_CODES[@code] || "Unknown Status #{@code}"
       @data = response.parsed_response
       @headers = response.headers
     end

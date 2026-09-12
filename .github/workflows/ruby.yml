@@ -1,7 +1,7 @@
 name: Ruby
 
 env:
-  WORLD_TIME_API_KEY: ${{ secrects.WORLD_TIME_API_KEY }}
+  WORLD_TIME_API_KEY: ${{ vars.WORLD_TIME_API_KEY }}
 
 on:
   push:

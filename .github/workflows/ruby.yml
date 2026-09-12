@@ -1,13 +1,13 @@
 name: Ruby
 
+env:
+  WORLD_TIME_API_KEY: ${{ secrects.WORLD_TIME_API_KEY }}
+
 on:
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-
-env:
-  WORLD_TIME_API_KEY: ${{ vars.WORLD_TIME_API_KEY }}
 
 permissions:
   contents: read

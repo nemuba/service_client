@@ -1,4 +1,4 @@
-*# ServiceClient
+# ServiceClient
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/service_client`. To experiment with that code, run `bin/console` for an interactive prompt.
 
@@ -30,6 +30,7 @@ Basic usage example:
 class CustomerClient < ServiceClient::Base
   base_url 'https://api.com'
   default_headers content_type: 'application/json'
+  default_options timeout: 5, open_timeout: 2
 
   def find(id)
     response = get("customers/#{id}")
@@ -58,17 +59,53 @@ end
 
 ```ruby
 # GET
-ServiceClient::Base.get(url, headers:)
+ServiceClient::Base.get(url, headers:, query:, timeout:, options:)
 
 # POST
-ServiceClient::Base.post(url, headers:, body:)
+ServiceClient::Base.post(url, headers:, body:, query:, timeout:, options:)
 
 # PUT
-ServiceClient::Base.put(url, headers:, body:)
+ServiceClient::Base.put(url, headers:, body:, query:, timeout:, options:)
 
 # DELETE
-ServiceClient::Base.delete(url, headers:, body:)
+ServiceClient::Base.delete(url, headers:, body:, query:, timeout:, options:)
 ```
+
+### Query parameters and timeouts
+
+Use `query:` to pass query-string parameters and `timeout:` to set a timeout for
+a specific request:
+
+```ruby
+CustomerClient.get(
+  'customers',
+  query: { page: 2, status: 'active' },
+  timeout: 10
+)
+```
+
+Use `default_options` to configure options for every request made by a client:
+
+```ruby
+class CustomerClient < ServiceClient::Base
+  base_url 'https://api.com'
+  default_options timeout: 5, open_timeout: 2
+end
+```
+
+The `options:` keyword provides access to other HTTParty request options:
+
+```ruby
+CustomerClient.get(
+  'customers',
+  options: { follow_redirects: false }
+)
+```
+
+Per-request `options:` override `default_options`. Explicit `headers:`, `body:`,
+`query:`, and `timeout:` arguments have the highest precedence. Request headers
+are merged with `default_headers`, with explicit request headers taking
+precedence when a key is repeated.
 
 ## Classes of errors
 

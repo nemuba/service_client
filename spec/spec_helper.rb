@@ -2,6 +2,11 @@
 
 require 'bundler/setup'
 require 'service_client'
+require 'dotenv/load'
+
+Dotenv.load(
+  File.expand_path('./.env', __dir__)
+)
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

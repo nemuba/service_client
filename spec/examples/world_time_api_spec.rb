@@ -3,10 +3,6 @@
 require './examples/world_time_api'
 
 RSpec.describe WorldTimeApi do
-  it '#timezones' do
-    expect(WorldTimeApi.timezones).to be_a(Array)
-  end
-
   it '#get_timezone' do
     timezone = WorldTimeApi.get_timezone('Europe/Moscow')
 

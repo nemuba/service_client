@@ -4,16 +4,12 @@ require './lib/service_client/base'
 
 # WorldTimeApi class
 class WorldTimeApi < ServiceClient::Base
-  base_url 'http://worldtimeapi.org/api'
-  default_headers content_type: 'application/json'
+  base_url 'https://world-time-api3.p.rapidapi.com'
+  default_headers content_type: 'application/json',
+                  "x-rapidapi-host": "world-time-api3.p.rapidapi.com",
+                  "x-rapidapi-key": ENV["WORLD_TIME_API_KEY"]
 
   class << self
-    def timezones
-      response = get('timezones')
-
-      response.data
-    end
-
     def get_timezone(timezone)
       response = get("timezone/#{timezone}")
 

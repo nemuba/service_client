@@ -33,21 +33,34 @@ module ServiceClient
         @default_headers = headers
       end
 
+      # Sets the default options to be sent with all requests.
+      #
+      # @param options [Hash] the default HTTParty options to be sent
+      def default_options(options = nil)
+        @default_options = options
+      end
+
       # Makes a POST request to the specified URL.
       #
       # @param url [String] the URL to make the request to
       # @param headers [Hash] additional headers to send with the request
       # @param body [Hash] the request body to send with the request
-      def post(url = nil, headers: nil, body: nil)
-        request(:post, url, headers: headers, body: body)
+      # @param query [Hash] query-string parameters to send with the request
+      # @param timeout [Numeric] timeout for this request
+      # @param options [Hash] additional HTTParty options for this request
+      def post(url = nil, headers: nil, body: nil, query: nil, timeout: nil, options: nil)
+        request(:post, url, headers: headers, body: body, query: query, timeout: timeout, options: options)
       end
 
       # Makes a GET request to the specified URL.
       #
       # @param url [String] the URL to make the request to
       # @param headers [Hash] additional headers to send with the request
-      def get(url = nil, headers: nil)
-        request(:get, url, headers: headers)
+      # @param query [Hash] query-string parameters to send with the request
+      # @param timeout [Numeric] timeout for this request
+      # @param options [Hash] additional HTTParty options for this request
+      def get(url = nil, headers: nil, query: nil, timeout: nil, options: nil)
+        request(:get, url, headers: headers, query: query, timeout: timeout, options: options)
       end
 
       # Makes a PUT request to the specified URL.
@@ -55,16 +68,23 @@ module ServiceClient
       # @param url [String] the URL to make the request to
       # @param headers [Hash] additional headers to send with the request
       # @param body [Hash] the request body to send with the request
-      def put(url = nil, headers: nil, body: nil)
-        request(:put, url, headers: headers, body: body)
+      # @param query [Hash] query-string parameters to send with the request
+      # @param timeout [Numeric] timeout for this request
+      # @param options [Hash] additional HTTParty options for this request
+      def put(url = nil, headers: nil, body: nil, query: nil, timeout: nil, options: nil)
+        request(:put, url, headers: headers, body: body, query: query, timeout: timeout, options: options)
       end
 
       # Makes a DELETE request to the specified URL.
       #
       # @param url [String] the URL to make the request to
       # @param headers [Hash] additional headers to send with the request
-      def delete(url = nil, headers: nil)
-        request(:delete, url, headers: headers)
+      # @param body [Hash] the request body to send with the request
+      # @param query [Hash] query-string parameters to send with the request
+      # @param timeout [Numeric] timeout for this request
+      # @param options [Hash] additional HTTParty options for this request
+      def delete(url = nil, headers: nil, body: nil, query: nil, timeout: nil, options: nil)
+        request(:delete, url, headers: headers, body: body, query: query, timeout: timeout, options: options)
       end
 
       private
@@ -75,15 +95,21 @@ module ServiceClient
       # @param url [String] the URL to make the request to
       # @param headers [Hash] additional headers to send with the request
       # @param body [Hash] the request body to send with the request
-      def request(method, url, headers: nil, body: nil)
+      # @param query [Hash] query-string parameters to send with the request
+      # @param timeout [Numeric] timeout for this request
+      # @param options [Hash] additional HTTParty options for this request
+      def request(method, url, headers: nil, body: nil, query: nil, timeout: nil, options: nil)
         raise_params_required(url: url)
 
-        options = {
-          headers: build_headers(headers),
-          body: body
-        }.compact
+        request_options = build_request_options(
+          headers: headers,
+          body: body,
+          query: query,
+          timeout: timeout,
+          options: options
+        )
 
-        request = HTTParty.send(method, build_url(url), options)
+        request = HTTParty.send(method, build_url(url), request_options)
 
         make_response(request)
       end
@@ -144,6 +170,25 @@ module ServiceClient
         return headers if default_headers.nil?
 
         default_headers.merge(headers)
+      end
+
+      # Builds the options to send with the request. Explicit keyword arguments
+      # take precedence over per-request options, which take precedence over defaults.
+      #
+      # @return [Hash] the options to pass to HTTParty
+      def build_request_options(headers:, body:, query:, timeout:, options:)
+        default_options = instance_variable_get('@default_options') || {}
+        request_options = default_options.dup.merge(options || {})
+
+        option_headers = request_options.delete(:headers)
+        merged_headers = build_headers(option_headers)
+        merged_headers = (merged_headers || {}).merge(headers) unless headers.nil?
+
+        request_options[:headers] = merged_headers unless merged_headers.nil?
+        request_options[:body] = body unless body.nil?
+        request_options[:query] = query unless query.nil?
+        request_options[:timeout] = timeout unless timeout.nil?
+        request_options
       end
     end
   end

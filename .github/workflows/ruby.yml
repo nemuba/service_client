@@ -29,5 +29,8 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
 
+      - name: Print Envs
+        run: printenv WORLD_TIME_API_KEY
+
       - name: Run tests
         run: bundle exec rspec
